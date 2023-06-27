@@ -25,6 +25,6 @@ end
 
 text = "Legalize-Nuclear-Bombsssssssssssssssssss"
 puts text.length
-puts Validation.valid_name?("Legalize-Nuclear-Bombsssssssssssssssssss")
+puts Validation.valid_name?("Legalize-Nuclear-BombsssssssssssssssSsss")
 puts Validation.valid_inn?("AZ0123456789")
 puts Validation.after_date?(Date.today.prev_day)
