@@ -8,9 +8,11 @@ require 'date'
 module Validation
     def self.valid_name?(str)
         return false if str.nil? || str.empty? || str.length > 40
-    
+
         words = str.split("-")
-        return false unless words.all? { |word| word == word.capitalize }
+        return false unless words.all? { |word| word == word.capitalize && word.match?(/^[A-Z]{1}[a-z]*$/)}
+        return false if words.size <= 1 && str.include?("-")
+        
         true
     end
 
@@ -25,6 +27,6 @@ end
 
 text = "Legalize-Nuclear-Bombsssssssssssssssssss"
 puts text.length
-puts Validation.valid_name?("Legalize-Nuclear-BombsssssssssssssssSsss")
+puts Validation.valid_name?("Anna-Maria")
 puts Validation.valid_inn?("AZ0123456789")
 puts Validation.after_date?(Date.today.prev_day)
