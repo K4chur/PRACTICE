@@ -10,7 +10,7 @@ module Validation
         return false if str.nil? || str.empty? || str.length > 40
 
         words = str.split("-")
-        return false unless words.all? { |word| word == word.capitalize && word.match?(/^[A-Z]{1}[a-z]*$/)}
+        return false unless words.all? { |word| word == word.capitalize && word.match?(/^[A-ZА-ЩЬЮЯҐЄІЇ]{1}[a-zа-щьюяґєії]*$/)}
         return false if words.size <= 1 && str.include?("-")
         
         true
@@ -27,6 +27,6 @@ end
 
 text = "Legalize-Nuclear-Bombsssssssssssssssssss"
 puts text.length
-puts Validation.valid_name?("Anna-Maria")
+puts Validation.valid_name?("AnnA")
 puts Validation.valid_inn?("AZ0123456789")
 puts Validation.after_date?(Date.today.prev_day)
