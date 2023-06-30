@@ -6,27 +6,33 @@
 require 'date'
 
 module Validation
-    def self.valid_name?(str)
-        return false if str.nil? || str.empty? || str.length > 40
+
+    MAX_NAME_LENGTH = 40;
+    NAME_REGEX = /^[A-ZА-ЩЬЮЯҐЄІЇ]{1}[a-zа-щьюяґєії]*$/
+    INN_REGEX = /\A[A-Z]{2}\d{10}\z/
+
+    def valid_name?(str)
+        return false if str.nil? || str.empty? || str.length > MAX_NAME_LENGTH
 
         words = str.split("-")
-        return false unless words.all? { |word| word == word.capitalize && word.match?(/^[A-ZА-ЩЬЮЯҐЄІЇ]{1}[a-zа-щьюяґєії]*$/)}
+        return false unless words.all? { |word| word == word.capitalize && word.match?(NAME_REGEX)}
         return false if words.size <= 1 && str.include?("-")
         
         true
     end
 
-    def self.valid_inn?(str)
-        str.match?(/\A[A-Z]{2}\d{10}\z/)
+    def valid_inn?(str)
+        str.match?(INN_REGEX)
     end
 
-    def self.after_date?(date)
-        date <= Date.today ? true : false
+    def after_date?(date)
+        date <= Date.today
     end
 end
 
-text = "Legalize-Nuclear-Bombsssssssssssssssssss"
-puts text.length
-puts Validation.valid_name?("AnnA")
-puts Validation.valid_inn?("AZ0123456789")
-puts Validation.after_date?(Date.today.prev_day)
+# text = "Legalize-Nuclear-Bombsssssssssssssssssss"
+# puts text.length
+
+puts Object.extend(Validation).valid_name?("Anna-Maria-Ірина")
+puts Object.extend(Validation).valid_inn?("AZ0123456789")
+puts Object.extend(Validation).after_date?(Date.today.prev_day)
