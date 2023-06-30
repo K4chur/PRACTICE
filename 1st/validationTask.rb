@@ -17,7 +17,7 @@ module Validation
     end
 
     def self.valid_inn?(str)
-        str.match?(/[A-Z]{2}\d{10}$/)
+        str.match?(/\A[A-Z]{2}\d{10}\z/)
     end
 
     def self.after_date?(date)
