@@ -63,7 +63,6 @@ class PersonRepository
       @people.select { |person| person.birth_date >= date_from && person.birth_date <= date_to }
     end
   end
-
 end
 
 pr = PersonRepository.new
