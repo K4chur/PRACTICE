@@ -54,7 +54,6 @@ module ConsoleInput
     end
     Date.parse(input)
   end
-
   private :valid_date_format?
 end
 
