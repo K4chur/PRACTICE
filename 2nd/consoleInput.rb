@@ -6,8 +6,8 @@ require FIRST_TASK_PATH
 module ConsoleInput
   def get_string_input()
     input = nil
-    until input && input.match?(/\A[a-zа-щьюяґєіїA-ZА-ЩЬЮЯҐЄІЇ]+\z/)
-      print "Input alphabetic value: "
+    until input && input.is_a?(String)
+      print "Input string value: "
       input = gets.chomp
     end
     input
@@ -41,7 +41,7 @@ module ConsoleInput
   end
 
   def valid_date_format?(input)
-    /^\d{4}-\d{2}-\d{2}$/.match?(input) && Date.parse(input)
+    Date.parse(input)
   rescue ArgumentError
     false
   end
@@ -54,17 +54,6 @@ module ConsoleInput
     end
     Date.parse(input)
   end
+
   private :valid_date_format?
 end
-
-# string_result = Object.extend(ConsoleInput).get_string_input()
-# p string_result
-# p string_result.class
-
-# integer_result = Object.extend(ConsoleInput).get_integer_input
-# p integer_result
-# p integer_result.class
-
-# date_result = Object.extend(ConsoleInput).get_date_input
-# p date_result
-# p date_result.class

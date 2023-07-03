@@ -1,4 +1,5 @@
 require_relative "person"
+require_relative "errors"
 
 class PersonRepository
   def initialize
@@ -6,21 +7,26 @@ class PersonRepository
   end
 
   def add_person(person)
-    if person.is_a?(Person)
-      @people << person
+    existing_person = @people.find { |p| p.inn == person.inn }
+    if existing_person
+      raise PersonAlreadyExist.new(person.inn)
     else
-      raise ArgumentError, "Person must be a member of Person.Class"
+      if person.is_a?(Person)
+        @people << person
+      else
+        raise ArgumentError, "Person must be a member of Person.Class"
+      end
     end
   end
 
   def edit_person_by_inn(inn, new_first_name, new_last_name, new_birth_date)
     person = get_byINN(inn)
     if person
-      person.first_name = new_first_name
-      person.last_name = new_last_name
-      person.birth_date = new_birth_date
+      person.first_name = new_person.first_name
+      person.last_name = new_person.last_name
+      person.birth_date = new_person.birth_date
     else
-      puts "Person not found for INN: #{inn}"
+      raise PersonNotFoundError.new(inn)
     end
   end
 
@@ -28,15 +34,8 @@ class PersonRepository
     person = get_byINN(inn)
     if person
       @people.delete(person)
-      puts "Person with INN #{inn} deleted."
     else
-      puts "Person not found for INN: #{inn}"
-    end
-  end
-
-  def show_people
-    @people.each do |person|
-      puts "First Name: #{person.first_name}, Last Name: #{person.last_name}, INN: #{person.inn}, Date Of Birth: #{person.birth_date}"
+      raise PersonNotFoundError.new(inn)
     end
   end
 
@@ -49,7 +48,11 @@ class PersonRepository
   end
 
   def get_by_part_name(name_part)
-    @people.select { |person| person.first_name.include?(name_part) || person.last_name.include?(name_part) }
+    name_part = name_part.downcase
+
+    @people.select do |person|
+      person.first_name.downcase.include?(name_part) || person.last_name.downcase.include?(name_part)
+    end
   end
 
   def get_by_date_range(date_from, date_to)
@@ -64,18 +67,3 @@ class PersonRepository
     end
   end
 end
-
-pr = PersonRepository.new
-pr.add_person(Person.new("John", "Luke", "AZ0123456789", "1999-12-12"))
-pr.add_person(Person.new("Michael", "Buh", "AU9875642310", "1920-12-12"))
-pr.add_person(Person.new("Liza", "Dovgan", "OI0654789321", "2003-12-12"))
-pr.add_person(Person.new("Kulka", "Mica", "AS4563210789", "1999-12-12"))
-pr.add_person(Person.new("Oleg", "Olegius", "AZ0123456789", "2005-12-12"))
-
-pr.show_people
-puts "\n"
-p pr.get_byINN("OI0654789321")
-puts "\n"
-p pr.get_by_part_name("u")
-puts "\n"
-p pr.get_by_date_range(Date.parse("1970-01-01"), Date.parse("2000-01-01"))
