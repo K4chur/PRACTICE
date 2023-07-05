@@ -16,7 +16,7 @@ class PersonTest < Test::Unit::TestCase
     end
   end
 
-  ['An-','-','aN','AnnA','-An','A-a','a-A','a-a', '', '123'].each do |name|
+  ['An-', '-', 'aN', 'AnnA', '-An', 'A-a', 'a-A', 'a-a', '', '123'].each do |name|
     define_method("test_invalid_first_name_#{name}") do
       assert_raise { @person.first_name = name }
     end
@@ -31,7 +31,7 @@ class PersonTest < Test::Unit::TestCase
     end
   end
 
-  ['An-','-','aN','AnnA','-An','A-a','a-A','a-a', '', '123'].each do |name|
+  ['An-', '-', 'aN', 'AnnA', '-An', 'A-a', 'a-A', 'a-a', '', '123'].each do |name|
     define_method("test_invalid_last_name_#{name}") do
       assert_raise { @person.last_name = name }
     end
@@ -42,14 +42,14 @@ class PersonTest < Test::Unit::TestCase
       expected = inn
       @person.inn = expected
       actual = @person.inn
-      assert_equal(expected,actual, "INN #{inn} is valid INN")
+      assert_equal(expected, actual, "INN #{inn} is valid INN")
     end
   end
 
-  ['AZ1', 'AC12', 'AB123', 'HS123456','AZ123456879', 'HZ', '',
+  ['AZ1', 'AC12', 'AB123', 'HS123456', 'AZ123456879', 'HZ', '',
    'Hz1234567890', 'nM7894561230', '1H7894561230', 'H21234567890'].each do |inn|
     define_method("test_invalid_inn_#{inn}") do
-      assert_raise {@person.inn = inn}
+      assert_raise { @person.inn = inn }
     end
   end
 

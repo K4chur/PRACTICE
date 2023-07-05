@@ -34,7 +34,7 @@ class PersonRepositoryTest < Test::Unit::TestCase
     new_last_name = "Name"
     new_birth_date = "2000-12-31"
     edited_inn = "AZ0123456789"
-    new_person = Person.new(new_first_name,new_last_name,edited_inn,new_birth_date)
+    new_person = Person.new(new_first_name, new_last_name, edited_inn, new_birth_date)
     @repository.edit_person_by_inn("AZ0123456789", new_person)
     updated_person = @repository.get_byINN("AZ0123456789")
     assert_equal(new_first_name, updated_person.first_name)
