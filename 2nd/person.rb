@@ -40,8 +40,8 @@ class Person
   def birth_date=(new_birth_date)
     if valid_date_format?(new_birth_date)
       value = Date.parse(new_birth_date)
-      if after_date?(new_birth_date)
-        @birth_date = new_birth_date
+      if after_date?(value)
+        @birth_date = value
       else
         raise ArgumentError, "Invalid Birth Date"
       end
@@ -49,4 +49,5 @@ class Person
       raise ArgumentError, "Invalid Date Format"
     end
   end
+
 end

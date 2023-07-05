@@ -5,7 +5,7 @@ class PersonNotFoundError < StandardError
 end
 
 class PersonAlreadyExist < StandardError
-    def initialize(inn)
-      super("Person with INN #{inn} already exists.")
-    end
+  def initialize(inn)
+    super("Person with INN #{inn} already exists.")
   end
+end

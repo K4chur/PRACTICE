@@ -41,7 +41,7 @@ module ConsoleInput
   end
 
   def valid_date_format?(input)
-    Date.parse(input)
+    /^\d{4}-\d{2}-\d{2}$/.match?(input) && Date.parse(input)
   rescue ArgumentError
     false
   end
