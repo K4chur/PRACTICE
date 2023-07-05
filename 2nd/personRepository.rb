@@ -2,6 +2,8 @@ require_relative "person"
 require_relative "errors"
 
 class PersonRepository
+  attr_reader :people
+
   def initialize
     @people = []
   end
